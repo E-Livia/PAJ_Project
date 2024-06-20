@@ -11,9 +11,9 @@ public class Event {
     private LocalDateTime endDateTime;
     private String location;
     private LocalDateTime createdAt;
-    private int locationId; // câmpul adăugat pentru legătura cu tabela locations
+    private int locationId;
 
-    // Constructori
+
     public Event() {
     }
 
@@ -23,7 +23,7 @@ public class Event {
         this.startDateTime = startDateTime;
     }
 
-    // Getters și setters
+
     public int getEventId() {
         return eventId;
     }
