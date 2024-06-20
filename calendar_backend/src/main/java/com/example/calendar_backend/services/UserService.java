@@ -1,68 +1,101 @@
 package com.example.calendar_backend.services;
 
 import com.example.calendar_backend.models.User;
-import com.example.calendar_backend.services.DatabaseConnection;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
 
-    private static final String SELECT_ALL_USERS_SQL = "SELECT * FROM users";
-    private static final String INSERT_USER_SQL = "INSERT INTO users (username, password, email, created_at) VALUES (?, ?, ?, ?)";
+    // Create a new user
+    public void createUser(User user) throws SQLException {
+        String sql = "INSERT INTO users (username, password, email, first_name, last_name, birthdate) VALUES (?, ?, ?, ?, ?, ?)";
 
-    public List<User> getAllUsers() {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getPassword());
+            pstmt.setString(3, user.getEmail());
+            pstmt.setString(4, user.getFirstName());
+            pstmt.setString(5, user.getLastName());
+            pstmt.setDate(6, new java.sql.Date(user.getBirthdate().getTime()));
+            pstmt.executeUpdate();
+        }
+    }
+
+    // Retrieve a user by ID
+    public User getUserById(int userId) throws SQLException {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+        User user = null;
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                user = new User(
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getTimestamp("created_at"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getDate("birthdate")
+                );
+            }
+        }
+
+        return user;
+    }
+
+    // Retrieve all users
+    public List<User> getAllUsers() throws SQLException {
+        String sql = "SELECT * FROM users";
         List<User> users = new ArrayList<>();
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(SELECT_ALL_USERS_SQL);
-             ResultSet rs = stmt.executeQuery()) {
-
+        try (Connection conn = DatabaseConnection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                User user = extractUserFromResultSet(rs);
+                User user = new User(
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getTimestamp("created_at"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getDate("birthdate")
+                );
                 users.add(user);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+
         return users;
     }
 
-    public void addUser(User user) {
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(INSERT_USER_SQL, Statement.RETURN_GENERATED_KEYS)) {
+    // Update a user
+    public void updateUser(User user) throws SQLException {
+        String sql = "UPDATE users SET username = ?, password = ?, email = ?, first_name = ?, last_name = ?, birthdate = ? WHERE user_id = ?";
 
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getPassword());
-            stmt.setString(3, user.getEmail());
-            stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
-
-            int affectedRows = stmt.executeUpdate();
-            if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
-            }
-
-            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    user.setUserId(generatedKeys.getInt(1));
-                } else {
-                    throw new SQLException("Creating user failed, no ID obtained.");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getPassword());
+            pstmt.setString(3, user.getEmail());
+            pstmt.setString(4, user.getFirstName());
+            pstmt.setString(5, user.getLastName());
+            pstmt.setDate(6, new java.sql.Date(user.getBirthdate().getTime()));
+            pstmt.setInt(7, user.getUserId());
+            pstmt.executeUpdate();
         }
     }
 
-    private User extractUserFromResultSet(ResultSet rs) throws SQLException {
-        int userId = rs.getInt("user_id");
-        String username = rs.getString("username");
-        String password = rs.getString("password");
-        String email = rs.getString("email");
-        LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
+    // Delete a user
+    public void deleteUser(int userId) throws SQLException {
+        String sql = "DELETE FROM users WHERE user_id = ?";
 
-        return new User(userId, username, password, email, createdAt);
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            pstmt.executeUpdate();
+        }
     }
 }
