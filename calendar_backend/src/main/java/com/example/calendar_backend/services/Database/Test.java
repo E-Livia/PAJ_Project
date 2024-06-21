@@ -1,9 +1,6 @@
-package com.example.calendar_backend.services;
+package com.example.calendar_backend.services.Database;
 
-import com.example.calendar_backend.models.User;
-import com.example.calendar_backend.services.UserService;
-
-import java.util.List;
+import com.example.calendar_backend.services.Database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.SQLException;

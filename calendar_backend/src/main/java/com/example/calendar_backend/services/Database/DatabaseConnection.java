@@ -1,4 +1,4 @@
-package com.example.calendar_backend.services;
+package com.example.calendar_backend.services.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,12 +1,16 @@
-package com.example.calendar_backend.services;
+package com.example.calendar_backend.services.CrudTests;
 
 import com.example.calendar_backend.models.User;
+import com.example.calendar_backend.services.UserService;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class Main {
+public class UserTest {
     public static void main(String[] args) {
+
+        //FOLOSIRE PROCEDURI STOCATE USER !!!
+
         UserService userService = new UserService();
 
         // Utilizator nou folosind constructor, username si mail trebuie sa fie unice !!!
@@ -70,5 +74,10 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
+
+
+
     }
 }

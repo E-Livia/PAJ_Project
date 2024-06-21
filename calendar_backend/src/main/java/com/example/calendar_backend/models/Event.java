@@ -1,98 +1,115 @@
 package com.example.calendar_backend.models;
 
-import java.time.LocalDateTime;
+import java.sql.Time;
+import java.util.Date;
 
 public class Event {
     private int eventId;
     private int userId;
     private String title;
     private String description;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
-    private String location;
-    private LocalDateTime createdAt;
+    private Date startDate;
+    private Time startTime;
+    private Date endDate;
+    private Time endTime;
     private int locationId;
 
-
-    public Event() {
+    @Override
+    public String toString() {
+        return "Event{" +
+                "eventId=" + eventId +
+                ", userId=" + userId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", startTime=" + startTime +
+                ", endDate=" + endDate +
+                ", endTime=" + endTime +
+                ", locationId=" + locationId +
+                '}';
     }
-
-    public Event(int userId, String title, LocalDateTime startDateTime) {
-        this.userId = userId;
-        this.title = title;
-        this.startDateTime = startDateTime;
-    }
-
 
     public int getEventId() {
         return eventId;
-    }
-
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
     }
 
     public int getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
-    }
-
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public Date getEndTime() {
+        return endTime;
     }
 
     public int getLocationId() {
         return locationId;
     }
 
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
+
     public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
+
+    public Event(int eventId, int userId, String title, String description, Date startDate, Time startTime, Date endDate, Time endTime, int locationId) {
+        this.eventId = eventId;
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
         this.locationId = locationId;
     }
 }

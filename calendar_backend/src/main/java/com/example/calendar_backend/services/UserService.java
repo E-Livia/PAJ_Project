@@ -1,6 +1,7 @@
 package com.example.calendar_backend.services;
 
 import com.example.calendar_backend.models.User;
+import com.example.calendar_backend.services.Database.DatabaseConnection;
 
 import java.sql.*;
 
@@ -114,5 +115,19 @@ public class UserService {
         }
 
         return isUnique == 1;
+    }
+
+    public int getUserIdByUsername(String username) throws SQLException {
+        String sql = "{CALL get_id_by_username(?)}";
+        int userId = 0;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             CallableStatement stmt = connection.prepareCall(sql)) {
+
+            stmt.setString(1, username);
+            stmt.execute();
+            userId = stmt.getInt(1); // Obține id-ul utilizatorului din rezultatul procedurii
+        }
+        return userId;
     }
 }

@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b3a928a-b070-4ed4-adca-1c513a01ff22" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/CrudTests/EventTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/EventService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/models/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/models/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/Database/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/CrudTests/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/Database/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,13 +59,13 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Master/MasterAnul1/PAJ/PAJ_Project/calendar_backend&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.calendar_backend.services.Main" />
+  <component name="RunManager" selected="Application.UserTest">
+    <configuration name="EventTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.calendar_backend.services.CrudTests.EventTest" />
       <module name="calendar_backend" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.calendar_backend.services.*" />
+          <option name="PATTERN" value="com.example.calendar_backend.services.CrudTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -69,11 +74,24 @@
       </method>
     </configuration>
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.calendar_backend.services.Test" />
+      <option name="MAIN_CLASS_NAME" value="com.example.calendar_backend.services.Database.Test" />
       <module name="calendar_backend" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.calendar_backend.services.*" />
+          <option name="PATTERN" value="com.example.calendar_backend.services.Database.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.calendar_backend.services.CrudTests.UserTest" />
+      <module name="calendar_backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.calendar_backend.services.Database.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -108,7 +126,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.UserTest" />
+        <item itemvalue="Application.EventTest" />
         <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
@@ -124,7 +143,7 @@
       <workItem from="1718880559376" duration="415000" />
       <workItem from="1718894618154" duration="3213000" />
       <workItem from="1718898517858" duration="4746000" />
-      <workItem from="1718957233746" duration="3604000" />
+      <workItem from="1718957233746" duration="10538000" />
     </task>
     <servers />
   </component>
@@ -141,5 +160,19 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.sql.SQLException" package="java.sql" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.sql.SQLSyntaxErrorException" package="java.sql" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
