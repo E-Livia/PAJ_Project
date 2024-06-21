@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b3a928a-b070-4ed4-adca-1c513a01ff22" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/CrudTests/EventTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/EventService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/models/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/models/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/Database/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/CrudTests/UserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/Database/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/CrudTests/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/calendar_backend/services/CrudTests/UserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +136,7 @@
       <workItem from="1718880559376" duration="415000" />
       <workItem from="1718894618154" duration="3213000" />
       <workItem from="1718898517858" duration="4746000" />
-      <workItem from="1718957233746" duration="10538000" />
+      <workItem from="1718957233746" duration="10847000" />
     </task>
     <servers />
   </component>

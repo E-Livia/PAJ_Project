@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `calendar_app`.`users` (
   UNIQUE INDEX `username` (`username` ASC) VISIBLE,
   UNIQUE INDEX `unique_email` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 10
+AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -212,6 +212,40 @@ END$$
 DELIMITER ;
 
 -- -----------------------------------------------------
+-- procedure delete_event_and_location
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `calendar_app`$$
+CREATE DEFINER=`admin`@`%` PROCEDURE `delete_event_and_location`(
+    IN p_event_id INT
+)
+BEGIN
+    DECLARE v_location_id INT;
+
+    -- Obținem location_id-ul evenimentului
+    SELECT location_id INTO v_location_id
+    FROM events
+    WHERE event_id = p_event_id;
+
+    -- Începem tranzacția
+    START TRANSACTION;
+
+    -- Ștergem evenimentul
+    DELETE FROM events
+    WHERE event_id = p_event_id;
+
+    -- Ștergem locația asociată evenimentului
+    DELETE FROM locations
+    WHERE location_id = v_location_id;
+
+    -- Confirmăm tranzacția
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
 -- procedure delete_user_by_username
 -- -----------------------------------------------------
 
@@ -231,18 +265,17 @@ BEGIN
     -- Începem tranzacția
     START TRANSACTION;
     
-        -- Ștergem locațiile asociate evenimentelor utilizatorului
-    DELETE FROM locations
-    WHERE event_id IN (
-        SELECT event_id
-        FROM events
-        WHERE user_id = v_user_id
-    );
-
     -- Ștergem evenimentele utilizatorului
     DELETE FROM events
     WHERE user_id = v_user_id;
 
+    -- Ștergem locațiile asociate evenimentelor utilizatorului
+    DELETE FROM locations
+    WHERE location_id IN (
+        SELECT location_id
+        FROM events
+        WHERE user_id = v_user_id
+    );
 
     -- Ștergem utilizatorul
     DELETE FROM users
@@ -284,6 +317,47 @@ USE `calendar_app`$$
 CREATE DEFINER=`admin`@`%` PROCEDURE `get_user_by_username`(IN p_username VARCHAR(50))
 BEGIN
     SELECT * FROM users WHERE username = p_username;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure update_event
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `calendar_app`$$
+CREATE DEFINER=`admin`@`%` PROCEDURE `update_event`(
+    IN p_event_id INT,
+    IN p_title VARCHAR(100),
+    IN p_description VARCHAR(1000),
+    IN p_start_date DATE,
+    IN p_start_time TIME,
+    IN p_end_date DATE,
+    IN p_end_time TIME,
+    IN p_location_id INT
+)
+BEGIN
+    DECLARE current_datetime DATETIME DEFAULT CURRENT_TIMESTAMP;
+
+    -- Începem tranzacția
+    START TRANSACTION;
+
+    -- Actualizăm evenimentul
+    UPDATE events
+    SET
+        title = p_title,
+        description = p_description,
+        start_date = p_start_date,
+        start_time = p_start_time,
+        end_date = p_end_date,
+        end_time = p_end_time,
+        location_id = p_location_id,
+        created_at = current_datetime
+    WHERE event_id = p_event_id;
+
+    -- Confirmăm tranzacția
+    COMMIT;
 END$$
 
 DELIMITER ;
