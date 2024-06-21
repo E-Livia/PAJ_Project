@@ -3,34 +3,39 @@ package com.example.calendar_backend.services;
 import com.example.calendar_backend.models.User;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserService {
 
-    // Create a new user
-    public void createUser(User user) throws SQLException {
-        String sql = "INSERT INTO users (username, password, email, first_name, last_name, birthdate) VALUES (?, ?, ?, ?, ?, ?)";
+    public int createUser(User user) throws SQLException {
+        String sql = "{CALL add_user(?, ?, ?, ?, ?, ?, ?)}";
+        int userId = 0;
 
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, user.getUsername());
-            pstmt.setString(2, user.getPassword());
-            pstmt.setString(3, user.getEmail());
-            pstmt.setString(4, user.getFirstName());
-            pstmt.setString(5, user.getLastName());
-            pstmt.setDate(6, new java.sql.Date(user.getBirthdate().getTime()));
-            pstmt.executeUpdate();
+        try (Connection connection = DatabaseConnection.getConnection();
+             CallableStatement stmt = connection.prepareCall(sql)) {
+
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getEmail());
+            stmt.setString(4, user.getFirstName());
+            stmt.setString(5, user.getLastName());
+            stmt.setDate(6, new java.sql.Date(user.getBirthdate().getTime()));
+            stmt.registerOutParameter(7, Types.INTEGER);
+
+            stmt.executeUpdate();
+            userId = stmt.getInt(7);
         }
+        return userId;
     }
 
-    // Retrieve a user by ID
-    public User getUserById(int userId) throws SQLException {
-        String sql = "SELECT * FROM users WHERE user_id = ?";
+    public User getUserByUsername(String username) throws SQLException {
+        String sql = "{CALL get_user_by_username(?)}";
         User user = null;
 
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, userId);
-            ResultSet rs = pstmt.executeQuery();
+        try (Connection connection = DatabaseConnection.getConnection();
+             CallableStatement stmt = connection.prepareCall(sql)) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 user = new User(
@@ -45,57 +50,69 @@ public class UserService {
                 );
             }
         }
-
         return user;
     }
 
-    // Retrieve all users
-    public List<User> getAllUsers() throws SQLException {
-        String sql = "SELECT * FROM users";
-        List<User> users = new ArrayList<>();
+    public void updateUserByUsername(String username, User user) throws SQLException {
+        String sql = "{CALL update_user_by_username(?, ?, ?, ?, ?, ?)}";
 
-        try (Connection conn = DatabaseConnection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                User user = new User(
-                        rs.getInt("user_id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getTimestamp("created_at"),
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getDate("birthdate")
-                );
-                users.add(user);
-            }
-        }
+        try (Connection connection = DatabaseConnection.getConnection();
+             CallableStatement stmt = connection.prepareCall(sql)) {
 
-        return users;
-    }
+            stmt.setString(1, username);
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getEmail());
+            stmt.setString(4, user.getFirstName());
+            stmt.setString(5, user.getLastName());
+            stmt.setDate(6, new java.sql.Date(user.getBirthdate().getTime()));
 
-    // Update a user
-    public void updateUser(User user) throws SQLException {
-        String sql = "UPDATE users SET username = ?, password = ?, email = ?, first_name = ?, last_name = ?, birthdate = ? WHERE user_id = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, user.getUsername());
-            pstmt.setString(2, user.getPassword());
-            pstmt.setString(3, user.getEmail());
-            pstmt.setString(4, user.getFirstName());
-            pstmt.setString(5, user.getLastName());
-            pstmt.setDate(6, new java.sql.Date(user.getBirthdate().getTime()));
-            pstmt.setInt(7, user.getUserId());
-            pstmt.executeUpdate();
+            stmt.executeUpdate();
         }
     }
 
-    // Delete a user
-    public void deleteUser(int userId) throws SQLException {
-        String sql = "DELETE FROM users WHERE user_id = ?";
+    public void deleteUserByUsername(String username) throws SQLException {
+        String sql = "{CALL delete_user_by_username(?)}";
 
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, userId);
-            pstmt.executeUpdate();
+        try (Connection connection = DatabaseConnection.getConnection();
+             CallableStatement stmt = connection.prepareCall(sql)) {
+
+            stmt.setString(1, username);
+            stmt.executeUpdate();
         }
+    }
+
+    public boolean isUsernameUnique(String username) throws SQLException {
+        String sql = "{CALL check_username_unique(?, ?)}";
+        int isUnique = 0;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             CallableStatement stmt = connection.prepareCall(sql)) {
+
+            stmt.setString(1, username);
+            stmt.registerOutParameter(2, Types.INTEGER);
+            stmt.execute();
+
+            isUnique = stmt.getInt(2);
+        }
+
+        return isUnique == 1;
+    }
+
+    public boolean isEmailUnique(String email) throws SQLException {
+        String sql = "{CALL check_email_unique(?, ?)}";
+        int isUnique = 0;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             CallableStatement stmt = connection.prepareCall(sql)) {
+
+            stmt.setString(1, email);
+            stmt.registerOutParameter(2, Types.INTEGER);
+            stmt.execute();
+
+            isUnique = stmt.getInt(2);
+            isUnique = stmt.getInt(2);
+        }
+
+        return isUnique == 1;
     }
 }
