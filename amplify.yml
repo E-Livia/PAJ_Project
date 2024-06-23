@@ -1,0 +1,17 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd PAJ_Project/calendar_frontend    
+        - npm ci  
+    build:
+      commands:
+        - npm run build --prod  
+  artifacts:
+    baseDirectory: dist/calendar_frontend
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/* 
