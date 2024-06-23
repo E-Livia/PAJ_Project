@@ -8,7 +8,7 @@ frontend:
       commands:
         - npm run build --prod
   artifacts:
-    baseDirectory: dist/CALENDAR_FRONTEND
+    baseDirectory: dist/calendar_frontend
     files:
       - '**/*'
   cache:
