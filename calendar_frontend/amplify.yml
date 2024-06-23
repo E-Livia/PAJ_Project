@@ -3,13 +3,13 @@ frontend:
   phases:
     preBuild:
       commands:
-        - cd calendar_frontend   
+        - cd PAJ_Project/calendar_frontend    
         - npm ci  
     build:
       commands:
         - npm run build --prod  
   artifacts:
-    baseDirectory: dist/CALENDAR_FRONTEND
+    baseDirectory: dist/calendar_frontend
     files:
       - '**/*'
   cache:
