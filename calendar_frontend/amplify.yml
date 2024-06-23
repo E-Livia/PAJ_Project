@@ -3,15 +3,14 @@ frontend:
   phases:
     preBuild:
       commands:
-        - cd PAJ_Project/calendar_frontend   # Schimbă directorul de lucru la calendar_frontend
-        - npm install                       # Instalează dependențele proiectului
+        - npm ci  
     build:
       commands:
-        - npm run build --prod             # Comandă pentru a construi aplicația Angular în modul producție
+        - npm run build --prod  
   artifacts:
-    baseDirectory: PAJ_Project/calendar_frontend/dist   # Directorul unde se află fișierele generate de build
+    baseDirectory: dist/CALENDAR_FRONTEND
     files:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*   # Păstrează cache-ul pentru node_modules pentru a accelera build-urile viitoare
+      - node_modules/**/* 
