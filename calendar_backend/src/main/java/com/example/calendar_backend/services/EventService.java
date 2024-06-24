@@ -14,7 +14,7 @@ public class EventService {
     }
 
     public int createEvent(Event event) throws SQLException {
-        String sqlAddEvent = "{CALL add_event(?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sqlAddEvent = "{CALL add_event(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         int eventId = 0;
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -30,6 +30,8 @@ public class EventService {
             stmtAddEvent.setDate(6, (Date) event.getEndDate());
             stmtAddEvent.setTime(7, (Time) event.getEndTime());
             stmtAddEvent.setInt(8, event.getLocationId());
+            stmtAddEvent.setString(9, event.getDocString());
+
 
             stmtAddEvent.executeUpdate();
             // Obținem id-ul evenimentului creat (dacă este necesar)
@@ -40,5 +42,39 @@ public class EventService {
         }
 
         return eventId;
+    }
+
+
+    public void addDocString(String newDoc,String docString){
+        if(docString.equals(""))
+            docString=newDoc;
+        else
+            docString=docString+","+newDoc;
+    }
+    public void deleteDocString(String deleteDoc,String docString){
+        if(docString.equals(deleteDoc))
+            docString="";
+        else
+            deleteWord(docString,deleteDoc);
+    }
+
+    public static String deleteWord(String input, String word) {
+        if (input == null || word == null || input.isEmpty()) {
+            return input;
+        }
+
+        String[] words = input.split(",");
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < words.length; i++) {
+            if (!words[i].equals(word)) {
+                if (result.length() > 0) {
+                    result.append(",");
+                }
+                result.append(words[i]);
+            }
+        }
+
+        return result.toString();
     }
 }

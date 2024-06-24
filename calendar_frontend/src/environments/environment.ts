@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/calendar_backend-1.0-SNAPSHOT/' // URL-ul serverului Payara
+  apiUrl: 'http://localhost:8080/calendar_backend-1.0-SNAPSHOT' // URL-ul serverului Payara
 };
 
 /*

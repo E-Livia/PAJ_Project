@@ -16,7 +16,7 @@ public class EventTest {
 
         try {
             // Obține ID-ul utilizatorului folosind UserService
-           User user = userService.getUserByUsername("john_doe"); // înlocuiește cu username-ul dorit
+            User user = userService.getUserByUsername("john_doe"); // înlocuiește cu username-ul dorit
             int userId=user.getUserId();
 
             // Exemplu de adăugare a unui eveniment
@@ -33,7 +33,8 @@ public class EventTest {
                     java.sql.Time.valueOf(startTime),
                     java.sql.Date.valueOf(endDate),
                     java.sql.Time.valueOf(endTime),
-                    1 // locationId - înlocuiește cu locația dorită
+                    1, // locationId - înlocuiește cu locația dorită
+                    ""//docString
             );
 
             eventService.createEvent(newEvent); // înlocuiește cu username-ul dorit

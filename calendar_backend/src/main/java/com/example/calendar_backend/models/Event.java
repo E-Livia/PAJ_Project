@@ -13,6 +13,7 @@ public class Event {
     private Date endDate;
     private Time endTime;
     private int locationId;
+    private String docString;
 
     @Override
     public String toString() {
@@ -26,6 +27,7 @@ public class Event {
                 ", endDate=" + endDate +
                 ", endTime=" + endTime +
                 ", locationId=" + locationId +
+                ", docString=" + docString +
                 '}';
     }
 
@@ -64,6 +66,7 @@ public class Event {
     public int getLocationId() {
         return locationId;
     }
+    public String getDocString(){return docString;}
 
     public void setEventId(int eventId) {
         this.eventId = eventId;
@@ -100,8 +103,10 @@ public class Event {
     public void setLocationId(int locationId) {
         this.locationId = locationId;
     }
+    public void setDocString(String docString){this.docString=docString;}
 
-    public Event(int eventId, int userId, String title, String description, Date startDate, Time startTime, Date endDate, Time endTime, int locationId) {
+
+    public Event(int eventId, int userId, String title, String description, Date startDate, Time startTime, Date endDate, Time endTime, int locationId,String docString) {
         this.eventId = eventId;
         this.userId = userId;
         this.title = title;
@@ -111,5 +116,6 @@ public class Event {
         this.endDate = endDate;
         this.endTime = endTime;
         this.locationId = locationId;
+        this.docString=docString;
     }
 }
