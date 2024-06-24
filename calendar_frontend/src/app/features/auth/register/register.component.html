@@ -1,1 +1,127 @@
-<p>register works!</p>
+<div class="register">
+    <form nz-form [formGroup]="Register" (ngSubmit)="RegisterUser()">
+      <h3>Bine ai venit!</h3>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="firstName"
+          >Prenume</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="Introduceti prenumele!"
+        >
+          <input nz-input formControlName="firstName" id="firstName" />
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="lastName"
+          >Nume</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="Introduceti numele!"
+        >
+          <input nz-input formControlName="lastName" id="lastName" />
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-label
+          [nzSm]="6"
+          [nzXs]="24"
+          nzFor="username"
+          nzRequired
+          nzTooltipTitle="Numele care va aparea in aplicatie"
+        >
+          <span>Nume de utilizator</span>
+        </nz-form-label>
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="Introduceti numele de utilizator!"
+        >
+          <input nz-input id="username" formControlName="username" />
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired
+          >Parola</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="Introduceti parola!"
+        >
+          <input
+            nz-input
+            type="password"
+            id="password"
+            formControlName="password"
+            (ngModelChange)="updateConfirmValidator()"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired
+          >Confirmati parola</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+          <input
+            nz-input
+            type="password"
+            formControlName="checkPassword"
+            id="checkPassword"
+          />
+          <ng-template #errorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')"
+              >Confirmati parola!</ng-container
+            >
+            <ng-container *ngIf="control.hasError('confirm')">
+              Cele doua parole nu corespund!
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="emailAddress"
+          >E-mail</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="Adresa de e-mail nu este valida!"
+        >
+          <input nz-input formControlName="emailAddress" id="emailAddress" />
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNo" nzRequired
+          >Numar de telefon</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          [nzValidateStatus]="Register.controls['phoneNo']"
+          nzErrorTip="Introduceti numarul de telefon!"
+        >
+          <nz-input-group>
+            <input formControlName="phoneNo" id="'phoneNo'" nz-input />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <button nz-button nzType="primary">Creeaza cont</button>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <p>Daca ai deja cont, <button nz-button nzType="dashed" (click)="goToLogIn()">autentificare</button></p>
+    </form>
+  </div>
+  

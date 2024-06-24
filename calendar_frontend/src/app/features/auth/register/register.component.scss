@@ -1,0 +1,31 @@
+.register {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(204, 247, 226);
+}
+
+[nz-form] {
+    width: 650px;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid rgb(218, 209, 209);
+    box-shadow: 5px 10px rgb(218, 209, 209);
+    margin-left: 20px;
+}
+
+h3{
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.phone-select {
+    width: 70px;
+}
+
+.register-are {
+    margin-bottom: 8px;
+}

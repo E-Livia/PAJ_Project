@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="login">
+  <form nz-form [formGroup]="Login" class="login-form" (ngSubmit)="ProceedLogin()">
+    <h3>Bine ai venit!</h3>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Introduceti numele de utilizator!">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="username" placeholder="Nume de utilizator" autocomplete="off" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Introduceti parola!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password" placeholder="Parola" autocomplete="off" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <div nz-row class="login-form-margin">
+      <div nz-col [nzSpan]="12">
+        <!-- <mat-checkbox >
+          Tine-ma minte
+        </mat-checkbox> -->
+      </div>
+      <div nz-col [nzSpan]="12">
+        <a class="login-form-forgot" (click)="goToForgotPassword()">Am uitat parola</a>
+      </div>
+    </div>
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Autentificare</button>
+    <p>Sau <button nz-button nzType="dashed" (click)="goToRegister()">Creeaza cont!</button></p>
+  </form>
+  </div>
