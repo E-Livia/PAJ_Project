@@ -13,8 +13,6 @@ public class UserTest {
 
         UserService userService = new UserService();
 
-        // Utilizator nou folosind constructor, username si mail trebuie sa fie unice !!!
-
         LocalDate birthday = LocalDate.of(2001, 7, 17);
         User newUser = new User(
                 0, // va fi setat automat in baza de date

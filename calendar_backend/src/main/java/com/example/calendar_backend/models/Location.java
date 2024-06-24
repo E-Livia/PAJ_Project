@@ -1,9 +1,23 @@
 package com.example.calendar_backend.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "locations")
 public class Location {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "location_id")
     private int locationId;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "latitude")
     private double latitude;
+
+    @Column(name = "longitude")
     private double longitude;
 
     public Location() {
