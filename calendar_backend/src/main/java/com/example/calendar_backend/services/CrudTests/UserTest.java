@@ -18,7 +18,7 @@ public class UserTest {
                 0, // va fi setat automat in baza de date
                 "madalina_serban000",
                 "password123",
-               "madalina_serban00@example.com",
+               "madalina_serban002@example.com",
                 null, // createdAt va fi setat automat de baza de date
                 "Madalina",
                 "Serban",
@@ -50,7 +50,7 @@ public class UserTest {
 
             // Actualizează utilizatorul în baza de date folosind procedura stocată
             retrievedUser.setPassword("newpassword123");
-            userService.updateUserByUsername(newUser.getUsername(), retrievedUser);
+            //userService.updateUserByUsername(newUser.getUsername(), retrievedUser);
             System.out.println("User updated successfully!");
 
             // Citește utilizatorul din nou pentru a verifica actualizarea

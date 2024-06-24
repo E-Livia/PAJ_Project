@@ -2,12 +2,22 @@ package com.example.calendar_backend.services;
 
 import com.example.calendar_backend.models.User;
 import com.example.calendar_backend.services.Database.DatabaseConnection;
+import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.sql.*;
 
+@Service
+@Transactional
 public class UserService {
-
+    @PersistenceContext
+    private EntityManager entityManager;
+    @Transactional
     public int createUser(User user) throws SQLException {
+
+        //  Query stmt = entityManager.createNativeQuery("CALL add_user(?, ?, ?, ?, ?, ?)");
         String sql = "{CALL add_user(?, ?, ?, ?, ?, ?, ?)}";
         int userId = 0;
 
