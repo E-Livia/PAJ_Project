@@ -18,7 +18,7 @@ public class UserTest {
         LocalDate birthday = LocalDate.of(2001, 7, 17);
         User newUser = new User(
                 0, // va fi setat automat in baza de date
-                "madalina_serban",
+                "madalina_serban000",
                 "password123",
                "madalina_serban00@example.com",
                 null, // createdAt va fi setat automat de baza de date

@@ -1,121 +1,121 @@
 package com.example.calendar_backend.models;
 
+import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Time;
-import java.util.Date;
 
+@Entity
+@Table(name = "events") // Numele tabelei din baza de date
 public class Event {
-    private int eventId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "user_id")
     private int userId;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "start_date")
     private Date startDate;
+
+    @Column(name = "start_time")
     private Time startTime;
+
+    @Column(name = "end_date")
     private Date endDate;
+
+    @Column(name = "end_time")
     private Time endTime;
+
+    @Column(name = "location_id")
     private int locationId;
+
+    @Column(name = "doc_string")
     private String docString;
 
-    @Override
-    public String toString() {
-        return "Event{" +
-                "eventId=" + eventId +
-                ", userId=" + userId +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", startDate=" + startDate +
-                ", startTime=" + startTime +
-                ", endDate=" + endDate +
-                ", endTime=" + endTime +
-                ", locationId=" + locationId +
-                ", docString=" + docString +
-                '}';
+    public int getId() {
+        return id;
     }
 
-    public int getEventId() {
-        return eventId;
-    }
-
-    public int getUserId() {
-        return userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public int getLocationId() {
-        return locationId;
-    }
-    public String getDocString(){return docString;}
-
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+    }
+
+    public Time getStartTime() {
+        return startTime;
     }
 
     public void setStartTime(Time startTime) {
         this.startTime = startTime;
     }
 
+    public Date getEndDate() {
+        return endDate;
+    }
+
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Time getEndTime() {
+        return endTime;
     }
 
     public void setEndTime(Time endTime) {
         this.endTime = endTime;
     }
 
+    public int getLocationId() {
+        return locationId;
+    }
+
     public void setLocationId(int locationId) {
         this.locationId = locationId;
     }
-    public void setDocString(String docString){this.docString=docString;}
 
+    public String getDocString() {
+        return docString;
+    }
 
-    public Event(int eventId, int userId, String title, String description, Date startDate, Time startTime, Date endDate, Time endTime, int locationId,String docString) {
-        this.eventId = eventId;
+    public void setDocString(String docString) {
+        this.docString = docString;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
         this.userId = userId;
-        this.title = title;
-        this.description = description;
-        this.startDate = startDate;
-        this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
-        this.locationId = locationId;
-        this.docString=docString;
     }
 }

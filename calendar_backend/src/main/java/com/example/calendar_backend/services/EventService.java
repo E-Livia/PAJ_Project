@@ -1,80 +1,56 @@
 package com.example.calendar_backend.services;
 
 import com.example.calendar_backend.models.Event;
-import com.example.calendar_backend.services.Database.DatabaseConnection;
 
-import java.sql.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class EventService {
 
-    private UserService userService; // Injectăm UserService
+    private EntityManager entityManager;
 
     public EventService() {
-        this.userService = new UserService();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("myPersistenceUnit");
+        this.entityManager = emf.createEntityManager();
     }
 
-    public int createEvent(Event event) throws SQLException {
-        String sqlAddEvent = "{CALL add_event(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
-        int eventId = 0;
+    public int createEvent(Event event) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(event);
+        entityManager.getTransaction().commit();
+        return event.getId();
+    }
 
-        try (Connection connection = DatabaseConnection.getConnection();
-             CallableStatement stmtAddEvent = connection.prepareCall(sqlAddEvent)) {
+    public Event getEventById(int eventId) {
+        return entityManager.find(Event.class, eventId);
+    }
 
+    public List<Event> getAllEvents() {
+        TypedQuery<Event> query = entityManager.createQuery("SELECT e FROM Event e", Event.class);
+        return query.getResultList();
+    }
 
-            // Adăugăm parametrii pentru procedura stocată add_event
-            stmtAddEvent.setInt(1, event.getUserId()); // ID-ul utilizatorului
-            stmtAddEvent.setString(2, event.getTitle());
-            stmtAddEvent.setString(3, event.getDescription());
-            stmtAddEvent.setDate(4, (Date) event.getStartDate());
-            stmtAddEvent.setTime(5, (Time) event.getStartTime());
-            stmtAddEvent.setDate(6, (Date) event.getEndDate());
-            stmtAddEvent.setTime(7, (Time) event.getEndTime());
-            stmtAddEvent.setInt(8, event.getLocationId());
-            stmtAddEvent.setString(9, event.getDocString());
+    public void updateEvent(Event event) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(event);
+        entityManager.getTransaction().commit();
+    }
 
-
-            stmtAddEvent.executeUpdate();
-            // Obținem id-ul evenimentului creat (dacă este necesar)
-            ResultSet rsAddEvent = stmtAddEvent.getGeneratedKeys();
-            if (rsAddEvent.next()) {
-                eventId = rsAddEvent.getInt(1);
-            }
+    public void deleteEvent(int eventId) {
+        Event event = entityManager.find(Event.class, eventId);
+        if (event != null) {
+            entityManager.getTransaction().begin();
+            entityManager.remove(event);
+            entityManager.getTransaction().commit();
         }
-
-        return eventId;
     }
 
+    // Alte metode specifice necesare
 
-    public void addDocString(String newDoc,String docString){
-        if(docString.equals(""))
-            docString=newDoc;
-        else
-            docString=docString+","+newDoc;
-    }
-    public void deleteDocString(String deleteDoc,String docString){
-        if(docString.equals(deleteDoc))
-            docString="";
-        else
-            deleteWord(docString,deleteDoc);
-    }
-
-    public static String deleteWord(String input, String word) {
-        if (input == null || word == null || input.isEmpty()) {
-            return input;
-        }
-
-        String[] words = input.split(",");
-        StringBuilder result = new StringBuilder();
-
-        for (int i = 0; i < words.length; i++) {
-            if (!words[i].equals(word)) {
-                if (result.length() > 0) {
-                    result.append(",");
-                }
-                result.append(words[i]);
-            }
-        }
-
-        return result.toString();
+    public void close() {
+        entityManager.close();
     }
 }

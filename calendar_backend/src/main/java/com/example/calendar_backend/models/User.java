@@ -1,22 +1,35 @@
 package com.example.calendar_backend.models;
-
+import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
 
+@Entity
+@Table(name = "users")
 public class User {
-    private int userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Integer userId;
+
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "created_at")
     private Timestamp createdAt;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
-    private Date birthdate;
 
-    public User() {
-    }
-
-    public User(int userId, String username, String password, String email, Timestamp createdAt, String firstName, String lastName, Date birthdate) {
+    public User(Integer userId, String username, String password, String email, Timestamp createdAt, String firstName, String lastName, Date birthdate) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -27,16 +40,18 @@ public class User {
         this.birthdate = birthdate;
     }
 
-    // Getter și Setter pentru userId
-    public int getUserId() {
+    public User() {
+
+    }
+
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    // Getter și Setter pentru username
     public String getUsername() {
         return username;
     }
@@ -45,7 +60,6 @@ public class User {
         this.username = username;
     }
 
-    // Getter și Setter pentru password
     public String getPassword() {
         return password;
     }
@@ -54,7 +68,6 @@ public class User {
         this.password = password;
     }
 
-    // Getter și Setter pentru email
     public String getEmail() {
         return email;
     }
@@ -63,7 +76,6 @@ public class User {
         this.email = email;
     }
 
-    // Getter și Setter pentru createdAt
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -72,7 +84,6 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    // Getter și Setter pentru firstName
     public String getFirstName() {
         return firstName;
     }
@@ -81,7 +92,6 @@ public class User {
         this.firstName = firstName;
     }
 
-    // Getter și Setter pentru lastName
     public String getLastName() {
         return lastName;
     }
@@ -90,7 +100,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    // Getter și Setter pentru birthdate
     public Date getBirthdate() {
         return birthdate;
     }
@@ -99,19 +108,7 @@ public class User {
         this.birthdate = birthdate;
     }
 
-    // Metoda toString pentru a afișa informațiile despre utilizator
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", createdAt=" + createdAt +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthdate=" + birthdate +
-                '}';
-    }
-}
+    @Column(name = "birthdate")
+    private Date birthdate;
 
+}
