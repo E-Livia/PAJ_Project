@@ -1,0 +1,46 @@
+.main-page {
+  display: grid;
+  grid-template-columns: 20% 55% 25%;
+  height: 100vh;
+  background-color: rgb(204, 247, 226);
+}
+
+.info{
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+h3{
+  font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+#calendar-section-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.calendar-section {
+  height: 850px;
+  width: 800px;
+  background-color: white;
+  border: solid black 1px;
+}
+
+.events{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  padding-top: 100px;
+}
+
+.events-section{
+  display: grid;
+  grid-template-rows: 10% 10% 80%;
+  padding-top: 20px;
+  padding-left: 20px;
+  height: 500px;
+  width: 350px;
+  background-color: white;
+  border: solid black 1px;
+}
