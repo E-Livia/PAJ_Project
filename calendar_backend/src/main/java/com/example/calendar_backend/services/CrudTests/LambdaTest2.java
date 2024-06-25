@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 public class LambdaTest2 {
 
     // AWS credentials and region
-
+    //test
     private static final String accessKey = "";
     private static final String secretKey = "";
     private static final String regionName = "eu-north-1"; // e.g., "us-east-1"
