@@ -165,5 +165,6 @@
     <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.29" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.28" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
+    <orderEntry type="library" name="mysql-connector-j-8.4.0" level="project" />
   </component>
 </module>
