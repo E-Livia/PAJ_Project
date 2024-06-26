@@ -5,22 +5,43 @@
 
   <div id="calendar-section-div">
     <section class="calendar-section">
-      <mat-calendar [(selected)]="selectedDate" (selectedChange)="onDateChange($event)"></mat-calendar>
+      <mat-calendar
+        [(selected)]="selectedDate"
+        (selectedChange)="onDateChange($event)"
+      >
+      </mat-calendar>
     </section>
   </div>
 
   <div class="events">
     <section class="events-section">
       <div class="about-event">
-        {{ selectedDate | date: 'fullDate' }}
+        {{ selectedDate | date : "fullDate" }}
       </div>
-      <div class="about-event" *ngIf="events.length === 0">Nu există evenimente</div>
+      <div class="about-event" *ngIf="events.length === 0">
+        Nu există evenimente
+      </div>
+      <!-- Tab-ul "Adauga eveniment" -->
+      <div *ngIf="showAddEventTab" class="add-event-tab">
+        <button id="button" (click)="triggerFileInput()">Adaugă eveniment</button>
+      </div>
       <div class="about-event" *ngIf="events.length > 0">
         <!-- Afișează evenimentele aici -->
-        <div *ngFor="let event of events">
-          <!-- Detalii eveniment -->#
-        </div>
+        <div *ngFor="let event of events"><!-- Detalii eveniment -->#</div>
       </div>
     </section>
   </div>
+
+  <!-- Tab-ul "Adauga eveniment"
+  <div *ngIf="showAddEventTab" class="add-event-tab">
+    <button (click)="triggerFileInput()">Adaugă eveniment</button>
+  </div> -->
+
+  <!-- Input file ascuns -->
+  <input
+    type="file"
+    #fileInput
+    style="display: none"
+    (change)="onFileSelected($event)"
+  />
 </div>
