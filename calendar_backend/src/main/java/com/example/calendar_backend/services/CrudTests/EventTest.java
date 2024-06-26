@@ -3,11 +3,13 @@ package com.example.calendar_backend.services.CrudTests;
 import com.example.calendar_backend.models.Event;
 import com.example.calendar_backend.services.EventService;
 
-import java.sql.SQLException;
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class EventTest {
+
     public static void main(String[] args) {
         EventService eventService = new EventService();
 
@@ -19,28 +21,28 @@ public class EventTest {
             LocalTime endTime = LocalTime.of(12, 0);
 
             Event newEvent = new Event();
-            newEvent.setUserId(1); // Setează ID-ul utilizatorului
+            newEvent.setUserId(1);
             newEvent.setTitle("Meeting");
             newEvent.setDescription("Team meeting for project planning");
-            newEvent.setStartDate(java.sql.Date.valueOf(startDate));
-            newEvent.setStartTime(java.sql.Time.valueOf(startTime));
-            newEvent.setEndDate(java.sql.Date.valueOf(endDate));
-            newEvent.setEndTime(java.sql.Time.valueOf(endTime));
-            newEvent.setLocationId(1); // Setează ID-ul locației
-            newEvent.setDocString(""); // Setează docString-ul
+            newEvent.setStartDate(startDate); // Set LocalDate directly
+            newEvent.setStartTime(startTime); // Set LocalTime directly
+            newEvent.setEndDate(endDate); // Set LocalDate directly
+            newEvent.setEndTime(endTime); // Set LocalTime directly
+            newEvent.setLocationId(1);
+            newEvent.setDocString("");
 
             int eventId = eventService.createEvent(newEvent);
             System.out.println("Event added successfully with ID: " + eventId);
 
             // Exemplu de actualizare a unui eveniment
-            /*newEvent.setTitle("Updated Meeting");
+            newEvent.setTitle("Updated Meeting");
             newEvent.setDescription("Updated team meeting");
             eventService.updateEvent(newEvent);
-            System.out.println("Event updated successfully!");*/
+            System.out.println("Event updated successfully!");
 
             // Exemplu de ștergere a unui eveniment
-            /*eventService.deleteEvent(eventId);
-            System.out.println("Event deleted successfully!");*/
+            eventService.deleteEvent(eventId);
+            System.out.println("Event deleted successfully!");
 
         } finally {
             // Închide EntityManager după utilizare (de preferat într-un context mai larg)

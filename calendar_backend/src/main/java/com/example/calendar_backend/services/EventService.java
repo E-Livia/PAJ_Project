@@ -21,7 +21,7 @@ public class EventService {
         entityManager.getTransaction().begin();
         entityManager.persist(event);
         entityManager.getTransaction().commit();
-        return event.getId();
+        return event.getEventId(); // Return the generated eventId
     }
 
     public Event getEventById(int eventId) {
@@ -47,8 +47,6 @@ public class EventService {
             entityManager.getTransaction().commit();
         }
     }
-
-    // Alte metode specifice necesare
 
     public void close() {
         entityManager.close();

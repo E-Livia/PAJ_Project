@@ -1,26 +1,30 @@
 package com.example.calendar_backend.models;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users") // This maps the entity to the "users" table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "created_at")
+    @CreationTimestamp // Hibernate-specific annotation to auto-generate creation timestamp
     private Timestamp createdAt;
 
     @Column(name = "first_name")
@@ -28,6 +32,9 @@ public class User {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "birthdate")
+    private Date birthdate;
 
     public User(Integer userId, String username, String password, String email, Timestamp createdAt, String firstName, String lastName, Date birthdate) {
         this.userId = userId;
@@ -107,8 +114,4 @@ public class User {
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
-
-    @Column(name = "birthdate")
-    private Date birthdate;
-
 }

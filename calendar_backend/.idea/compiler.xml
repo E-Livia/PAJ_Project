@@ -9,8 +9,5 @@
         <module name="calendar_backend" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="calendar_backend" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,16 +1,16 @@
 package com.example.calendar_backend.models;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 @Entity
-@Table(name = "events") // Numele tabelei din baza de date
+@Table(name = "events")
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "event_id")
+    private int eventId;
 
     @Column(name = "user_id")
     private int userId;
@@ -22,16 +22,16 @@ public class Event {
     private String description;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "start_time")
-    private Time startTime;
+    private LocalTime startTime;
 
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDate endDate;
 
     @Column(name = "end_time")
-    private Time endTime;
+    private LocalTime endTime;
 
     @Column(name = "location_id")
     private int locationId;
@@ -39,12 +39,26 @@ public class Event {
     @Column(name = "doc_string")
     private String docString;
 
-    public int getId() {
-        return id;
+    // Constructors, getters, and setters
+
+    public Event() {
+        // Default constructor
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -63,35 +77,35 @@ public class Event {
         this.description = description;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Time getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
-    public Time getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -109,13 +123,5 @@ public class Event {
 
     public void setDocString(String docString) {
         this.docString = docString;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 }
